@@ -1,3 +1,64 @@
-class permutation{
+#include <iostream>
+#include <string>
+#include <list>
 
-}
+using namespace std;
+
+
+class Permutation{
+    private:
+        int relativeIndexLocations[];
+
+        int get(int index){
+            return (index + 1) - relativeIndexLocations[index]; 
+        }
+
+        void setRIL(int index, int relativeIndex){
+
+        }
+
+
+
+    public:
+       /**
+        * Non-default constructor that initiates an Identity Permuation at size N
+        * @param N specifies the length of the permutation
+       */
+        Permutation(int N){
+            int relativeIndexLocations[N];
+            ;
+        }
+
+        /**
+         * Locates the index of a specified integer in the next Permutation
+         * @param i the index of the specified integer in the Permutation
+         * @return the ith integer's index in the next permutatoin
+        */
+        int apply(int i){
+            ;
+        }
+
+        /**
+         * 
+        */
+        Permutation compose(Permutation p2){
+            ;
+        }
+        string toString(){
+            ;
+        }
+        bool isId(){
+            ;
+        }
+        bool compareTo(){
+            ;
+        }
+        bool Equals(Permutation p2){
+            ;
+        }
+        Permutation Next(){
+            ;
+        }
+
+
+};
