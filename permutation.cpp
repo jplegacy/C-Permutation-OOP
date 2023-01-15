@@ -4,10 +4,21 @@
 
 using namespace std;
 
-
+/**
+ * Array based implementation of an indivdual Permutation. Can be used to find the next Permutation
+ * 
+ * @author Jeremy Perez
+ * @date 01/13/2023
+*/
 class Permutation{
     private:
-        int relativeIndexLocations[];
+        /**
+         * INVARIANT:
+         *  - RelativeIndexLocations keeps track of changes made to the each item in the sequence
+         *  - e.g RIL = [0,0,0] implies the sequence 1,2,3 (ID Perm) and RIL = [1,-1,0] implies the sequence 2,1,3
+         *  - Will always be length of the sequence and every possible 
+        */
+        int relativeIndexLocations[]; 
 
         int get(int index){
             return (index + 1) - relativeIndexLocations[index]; 
