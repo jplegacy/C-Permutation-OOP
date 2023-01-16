@@ -20,7 +20,7 @@ class Permutation{
         */
         int relativeIndexLocations[]; 
 
-        int get(int index){
+        int getAtIndex(int index){
             return (index + 1) - relativeIndexLocations[index]; 
         }
 
@@ -68,8 +68,15 @@ class Permutation{
             ;
         }
         Permutation Next(){
+            for(int r : relativeIndexLocations)
             ;
         }
 
 
 };
+
+
+int main(){
+    Permutation test = Permutation(5);
+    test.
+}
