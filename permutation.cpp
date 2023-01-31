@@ -88,7 +88,7 @@ class Permutation{
             string perm = "";
             for (int i = 0; i < get_length(); i++)
             {
-                perm += getAtIndex(i);
+                perm = perm + to_string(getAtIndex(i));
             }
     
             
