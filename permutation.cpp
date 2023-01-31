@@ -24,22 +24,29 @@ class Permutation{
         int getAtIndex(int index){
             return (index + 1) - relativeIndexLocations[index]; 
         }
+        int getRelativeAtIndex(int index){
+            return relativeIndexLocations[index]; 
+        }
 
         void setRIL(int index, int pointToIndex){
             relativeIndexLocations[index] =  (pointToIndex + 1) - index; 
         }
 
         int get_length(){
-            return relativeIndexLocations.size;
+            return (int)relativeIndexLocations.size();
         }
 
-        int findIndexOf(int numToSearchFor){
-            for(int i = 0; i< this->get_length();i++){
-                if(this.getAtIndex(i) == numToSearchFor){
-                    return i;
-                }
-            }
-            return 0;
+        // int findIndexOf(int numToSearchFor){
+        //     for(int i = 0; i< this->get_length();i++){
+        //         if(this.getAtIndex(i) == numToSearchFor){
+        //             return i;
+        //         }
+        //     }
+        //     return 0;
+        // }
+
+        void swapIndexs(int atA, int toB){
+            relativeIndexLocations.swap(relativeIndexLocations[atA], relativeIndexLocations[toB]);
         }
 
     public:
@@ -58,12 +65,16 @@ class Permutation{
          * @return the ith integer's index in the next permutatoin
         */
         int apply(Permutation p2, int i){
-
-            int numInPerm = this.getAtIndex(i);
-            int indexOfLocation = p2.findIndexOf(i);
-
+            int currentRelativeVal = this.getRelativeAtIndex(i)
+            int relativeTransformation = p2.getRelativeAtIndex(i);
             
-            ;
+
+            if(currentRelativeVal + relativeTransformation >= this.length){
+
+            }
+            
+            this-> swapIndexs(numInPerm, indexOfLocation);
+
         }
 
         /**
@@ -74,37 +85,41 @@ class Permutation{
         }
         string toString(){
             string perm = "";
-            for (i = 0; i < len; i++)
+            for (int i = 0; i < this->get_length(); i++)
             {
-                /* code */
+                perm += this->getAtIndex(i);
             }
             
-
-            ;
+            return perm;      
         }
         bool isId(){
-            return strcmp(this.toString() == );
-            ;
+            for(int x=0; x<this->length; x++){
+                if (this->getRelativeAtIndex(x) != 0){
+                    return false;
+                }
+            }
+
+            return true;
         }
         int compareTo(){
-            ;
+            ; 
         }
-        bool Equals(Permutation p2){
-            return strcmp(this.toString(), p2.toString());
+        bool equals(Permutation p2){
+            return this->toString().compare(p2.toString()) == 0;
         }
+
 
         Permutation Next(){
             for(int r : relativeIndexLocations)
             ;
         }
 
-
 };
 
-int* emptySequenceGenerator(int N){
-    int sequence[N];
+static int* emptySequenceGenerator(int N){
+    int sequence[N] ;
 
-    for(int i; i<N; i++){
+    for(int i; i < N; i++){
         sequence[i] = 0;
     }
     return sequence;
