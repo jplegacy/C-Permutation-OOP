@@ -67,12 +67,12 @@ class Permutation{
         */
         int apply(Permutation p2, int index){
             int newIndex = index + p2.getRelativeAtIndex(index);
-            this->swapIndexs(index, newIndex);
+            swapIndexs(index, newIndex);
             
-            int newRIL = this->getRelativeAtIndex(index) + p2.getRelativeAtIndex(index);
-            this->relativeIndexLocations[index] = newRIL;
+            int newRIL = getRelativeAtIndex(index) + p2.getRelativeAtIndex(index);
+            relativeIndexLocations[index] = newRIL;
 
-            newRIL = this->getRelativeAtIndex(newIndex) + p2.getRelativeAtIndex(newIndex);
+            newRIL = getRelativeAtIndex(newIndex) + p2.getRelativeAtIndex(newIndex);
             relativeIndexLocations[newIndex] = newRIL;
 
             return 0;
@@ -86,16 +86,17 @@ class Permutation{
         }
         string toString(){
             string perm = "";
-            for (int i = 0; i < this->get_length(); i++)
+            for (int i = 0; i < get_length(); i++)
             {
-                perm += this->getAtIndex(i);
+                perm += getAtIndex(i);
             }
+    
             
             return perm;      
         }
         bool isId(){
-            for(int x=0; x<this->length; x++){
-                if (this->getRelativeAtIndex(x) != 0){
+            for(int x=0; x<length; x++){
+                if (getRelativeAtIndex(x) != 0){
                     return false;
                 }
             }
@@ -105,7 +106,7 @@ class Permutation{
             return 0;
         }
         bool equals(Permutation p2){
-            return this->toString().compare(p2.toString()) == 0;
+            return toString().compare(p2.toString()) == 0;
         }
 
         Permutation Next(){
