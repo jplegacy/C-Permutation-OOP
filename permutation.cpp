@@ -37,7 +37,9 @@ class Permutation{
         }
 
         void swapIndexs(int atA, int toB){
-            swap(relativeIndexLocations[atA],relativeIndexLocations[toB]);
+            int temp = relativeIndexLocations[atA];
+            relativeIndexLocations[atA] = relativeIndexLocations[toB];
+            relativeIndexLocations[toB] = temp;
         }
 
     public:
@@ -46,13 +48,15 @@ class Permutation{
         * @param N specifies the length of the permutation
        */
         Permutation(int N){
-            for(int i; i < N; i++){
+            length = N;
+            for(int i=1; i <= N; i++){
                 relativeIndexLocations.push_back(i);
             }
         }
 
         Permutation(int* sequence){
-            for(int i=0; i < sizeof(sequence); i++){
+            length = sizeof(sequence);
+            for(int i=0; i < length; i++){
                 relativeIndexLocations.push_back(sequence[i]);
             }
         }
@@ -112,11 +116,14 @@ class Permutation{
 
 };
 
-
 int main(){
     Permutation test = Permutation(5);
     int seq[] =  {1,2,4,3};
 
     Permutation test2 = Permutation(seq);
+
+    cout << test.toString()<<"\n";
+    test.apply(test2,3);
+    cout << test.toString() <<"\n";
 
 }
