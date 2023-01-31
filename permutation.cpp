@@ -5,7 +5,7 @@
 using namespace std;
 
 /**
- * Array based implementation of an indivdual Permutation. Can be used to find the next Permutation
+ * Array based implementation of an individual Permutation. Can be used to find the next Permutation
  * 
  * @author Jeremy Perez
  * @date 01/13/2023
@@ -33,20 +33,20 @@ class Permutation{
         }
 
         int get_length(){
-            return (int)relativeIndexLocations.size();
+            return (int) relativeIndexLocations.size();
         }
 
-        // int findIndexOf(int numToSearchFor){
-        //     for(int i = 0; i< this->get_length();i++){
-        //         if(this.getAtIndex(i) == numToSearchFor){
-        //             return i;
-        //         }
-        //     }
-        //     return 0;
-        // }
-
         void swapIndexs(int atA, int toB){
-            relativeIndexLocations.swap(relativeIndexLocations[atA], relativeIndexLocations[toB]);
+            swap(relativeIndexLocations[atA],relativeIndexLocations[toB]);
+        }
+
+        static int* emptySequenceGenerator(int N){
+            int sequence[N] ;
+
+            for(int i; i < N; i++){
+                sequence[i] = 0;
+            }
+            return sequence;
         }
 
     public:
@@ -56,7 +56,7 @@ class Permutation{
        */
         Permutation(int N){
             int* sequence = emptySequenceGenerator(N);
-            relativeIndexLocations = new vector(sequence);
+            relativeIndexLocations<int> vect(sequence);
         }
 
         /**
@@ -73,7 +73,7 @@ class Permutation{
 
             }
             
-            this-> swapIndexs(numInPerm, indexOfLocation);
+            this ->swapIndexs(numInPerm, indexOfLocation);
 
         }
 
@@ -108,7 +108,6 @@ class Permutation{
             return this->toString().compare(p2.toString()) == 0;
         }
 
-
         Permutation Next(){
             for(int r : relativeIndexLocations)
             ;
@@ -116,14 +115,7 @@ class Permutation{
 
 };
 
-static int* emptySequenceGenerator(int N){
-    int sequence[N] ;
 
-    for(int i; i < N; i++){
-        sequence[i] = 0;
-    }
-    return sequence;
-}
 
 
 
