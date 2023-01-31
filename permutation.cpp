@@ -57,7 +57,7 @@ class Permutation{
         Permutation(int* sequence){
             length = sizeof(sequence);
             for(int i=0; i < length; i++){
-                relativeIndexLocations.push_back(sequence[i]);
+                setRIL(i,sequence[i]);
             }
         }
         /**
@@ -69,11 +69,11 @@ class Permutation{
             int newIndex = index + p2.getRelativeAtIndex(index);
             swapIndexs(index, newIndex);
             
-            int newRIL = getRelativeAtIndex(index) + p2.getRelativeAtIndex(index);
-            relativeIndexLocations[index] = newRIL;
+            int newFromRIL = getRelativeAtIndex(index) + p2.getRelativeAtIndex(index);
+            relativeIndexLocations[index] = newFromRIL;
 
-            newRIL = getRelativeAtIndex(newIndex) + p2.getRelativeAtIndex(newIndex);
-            relativeIndexLocations[newIndex] = newRIL;
+            int newToRIL = getRelativeAtIndex(newIndex) + p2.getRelativeAtIndex(newIndex);
+            relativeIndexLocations[newIndex] = newToRIL;
 
             return 0;
         }
