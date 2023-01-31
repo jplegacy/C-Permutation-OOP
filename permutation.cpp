@@ -115,6 +115,8 @@ class Permutation{
 
 int main(){
     Permutation test = Permutation(5);
-    Permutation test2 = Permutation({1,2,5,6});
+    int seq[] =  {1,2,4,3};
+
+    Permutation test2 = Permutation(seq);
 
 }
