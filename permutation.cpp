@@ -40,48 +40,45 @@ class Permutation{
             swap(relativeIndexLocations[atA],relativeIndexLocations[toB]);
         }
 
-        static int* emptySequenceGenerator(int N){
-            int sequence[N] ;
-
-            for(int i; i < N; i++){
-                sequence[i] = 0;
-            }
-            return sequence;
-        }
-
     public:
        /**
         * Non-default constructor that initiates an Identity Permuation at size N
         * @param N specifies the length of the permutation
        */
         Permutation(int N){
-            int* sequence = emptySequenceGenerator(N);
-            relativeIndexLocations<int> vect(sequence);
+            for(int i; i < N; i++){
+                relativeIndexLocations.push_back(i);
+            }
         }
 
+        Permutation(int* sequence){
+            for(int i=0; i < sizeof(sequence); i++){
+                relativeIndexLocations.push_back(sequence[i]);
+            }
+        }
         /**
          * Locates the index of a specified integer in the next Permutation
          * @param i the index of the specified integer in the Permutation
          * @return the ith integer's index in the next permutatoin
         */
-        int apply(Permutation p2, int i){
-            int currentRelativeVal = this.getRelativeAtIndex(i)
-            int relativeTransformation = p2.getRelativeAtIndex(i);
+        int apply(Permutation p2, int index){
+            int newIndex = index + p2.getRelativeAtIndex(index);
+            this->swapIndexs(index, newIndex);
             
+            int newRIL = this->getRelativeAtIndex(index) + p2.getRelativeAtIndex(index);
+            this->relativeIndexLocations[index] = newRIL;
 
-            if(currentRelativeVal + relativeTransformation >= this.length){
+            newRIL = this->getRelativeAtIndex(newIndex) + p2.getRelativeAtIndex(newIndex);
+            relativeIndexLocations[newIndex] = newRIL;
 
-            }
-            
-            this ->swapIndexs(numInPerm, indexOfLocation);
-
+            return 0;
         }
 
         /**
          * 
         */
         Permutation compose(Permutation p2){
-            ;
+            return Permutation(1);
         }
         string toString(){
             string perm = "";
@@ -98,27 +95,26 @@ class Permutation{
                     return false;
                 }
             }
-
             return true;
         }
         int compareTo(){
-            ; 
+            return 0;
         }
         bool equals(Permutation p2){
             return this->toString().compare(p2.toString()) == 0;
         }
 
         Permutation Next(){
-            for(int r : relativeIndexLocations)
+            for(int r : relativeIndexLocations){}
             ;
+            return Permutation(1);
         }
 
 };
 
 
-
-
-
 int main(){
     Permutation test = Permutation(5);
+    Permutation test2 = Permutation({1,2,5,6});
+
 }
