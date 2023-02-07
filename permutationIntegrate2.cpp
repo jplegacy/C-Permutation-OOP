@@ -23,7 +23,7 @@ class Permutation{
         vector<int> permSequence;
 
         int getAtIndex(int index){
-            return permSequence.at(index); 
+            return permSequence[index]; 
         }
         int getLength(){
             return (int) permSequence.size();
@@ -107,7 +107,7 @@ class Permutation{
             string perm = "";
             for (int i = 0; i < getLength(); i++)
             {
-                perm = perm + to_string(getAtIndex(i));
+                perm = perm + " " + to_string(getAtIndex(i));
             }
 
             return perm;      
@@ -137,9 +137,9 @@ class Permutation{
 
             // Finds the last element where the next element is bigger
             
-            int startingIndex = getLength() - 1; //Because we are comparing the last values 
-
+            int startingIndex = getLength() - 1; //Because we are starting from the last index
             do{
+                //We need to grab the second last index
                 startingIndex--;
 
                 // Case: It's the last permutation
@@ -154,7 +154,7 @@ class Permutation{
 
             // Finds the smallest number after index that is bigger than step 1
             int smallestNumLocationAfterStart =  startingIndex + 1;
-            int smallestNumAfterStart = getAtIndex(smallestNumAfterStart);
+            int smallestNumAfterStart = getAtIndex(smallestNumLocationAfterStart);
 
             for(int i = smallestNumLocationAfterStart; i < getLength(); i++){
                 int currentNum = getAtIndex(i);
@@ -172,7 +172,7 @@ class Permutation{
 
             // Sort substring after index in increasing order
 
-            // sort(newPermSequence.begin() + startingIndex + 1, newPermSequence.end());
+            sort(newPermSequence.begin() + startingIndex + 1, newPermSequence.end());
 
             return Permutation(newPermSequence);
         }
@@ -180,8 +180,6 @@ class Permutation{
 };
 
 int main(){
-
-    cout << "ping";
 
     int seq[] =  {1,2,4,3};
     Permutation test = Permutation(4,seq);
@@ -199,7 +197,10 @@ int main(){
     // Permutation result = test.compose(test2);
     // cout << result.toString();
 
-    Permutation next = test.Next();
-    // cout << next.toString();    
+    vector<int> seq3 =  {3,1,2};
+    Permutation test3 = Permutation(seq3);
+
+    Permutation next = test3.Next();
+    cout << next.toString() << "\n";    
 
 }
