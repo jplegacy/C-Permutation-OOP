@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -22,16 +23,35 @@ class Permutation{
         vector<int> permSequence;
 
         int getAtIndex(int index){
-            return permSequence[index]; 
+            return permSequence.at(index); 
         }
-        int get_length(){
+        int getLength(){
             return (int) permSequence.size();
         }
 
         void swapIndexs(int atA, int toB){
-            int temp = permSequence[atA];
-            permSequence[atA] = permSequence[toB];
-            permSequence[toB] = temp;
+            permSequence = swapIndexs(permSequence, atA, toB);
+        }
+        
+        vector<int> swapIndexs(vector<int> seq, int atA, int toB){
+            int temp = seq[atA];
+            seq[atA] = seq[toB];
+            seq[toB] = temp;
+
+            return seq;
+        }
+
+        int findValue(int valueToFind){
+            for(int i=0; i < getLength();i++){
+                if( valueToFind == permSequence[i]){
+                    return i;
+                }
+            }
+            return -1;
+        }
+        int getIdentityPosition(int index)
+        {
+            return index+1;
         }
 
     public:
@@ -51,8 +71,13 @@ class Permutation{
             for(int i=0; i < length; i++){
                 permSequence.push_back(sequence[i]); 
             }
-            length = permSequence.size();
         }
+
+        Permutation(vector<int> seq){
+            length = (int) seq.size();
+            permSequence = seq;
+        }
+
         /**
          * Locates the index of a specified integer in the next Permutation
          * @param i the index of the specified integer in the Permutation
@@ -60,85 +85,121 @@ class Permutation{
         */
         int apply(int valueToFind){
             return permSequence[valueToFind-1];
-
         }
 
-        int findValue(int valueToFind){
-            for(int i=0; i < get_length();i++){
-                if( valueToFind == permSequence[i]){
-                    return i;
-                }
-            }
-            return -1;
-        }
         /**
          * 
         */
         Permutation compose(Permutation p2){
 
-            int composedSequence[get_length()];
+            int composedSequence[getLength()];
 
-            for (int i = 0; i < get_length(); i++){
-                int locationIndex = p2.getAtIndex(i);
+            for (int i = 0; i < getLength(); i++){
+                int locationIndex = p2.getAtIndex(i) - 1;
                 composedSequence[locationIndex] = getAtIndex(i);
             }
 
-            Permutation composedPerm = Permutation(get_length(), composedSequence);
+            Permutation composedPerm = Permutation(getLength(), composedSequence);
 
             return composedPerm;
         }
         string toString(){
             string perm = "";
-            for (int i = 0; i < get_length(); i++)
+            for (int i = 0; i < getLength(); i++)
             {
                 perm = perm + to_string(getAtIndex(i));
             }
 
             return perm;      
         }
-        int getIdentityPosition(int index)
-        {
-            return index+1;
-        }
 
         bool isId(){
-            for(int x=0; x<get_length(); x++){
-                if (getAtIndex(x) != getIdentityPosition(x)){
+            return isId(permSequence);
+        }
+
+        bool isId(vector<int> sequence){
+            for(int x=0; x<sequence.size(); x++){
+                if (sequence[x] != getIdentityPosition(x)){
                     return false;
                 }
             }
             return true;
-        }
-        int compareTo(){
-            return 0;
+            }
+
+        int compareTo(Permutation p2){
+            return toString().compare(p2.toString());
         }
         bool equals(Permutation p2){
-            return toString().compare(p2.toString()) == 0;
+            return  compareTo(p2) == 0;
         }
 
         Permutation Next(){
-            for(int r : permSequence){}
-            ;
-            return Permutation(1);
+
+            // Finds the last element where the next element is bigger
+            
+            int startingIndex = getLength() - 1; //Because we are comparing the last values 
+
+            do{
+                startingIndex--;
+
+                // Case: It's the last permutation
+                if(startingIndex == -1){
+                    return Permutation(permSequence);
+                    break;
+                }
+            }
+            while(getAtIndex(startingIndex) >= getAtIndex(startingIndex+1));
+
+            int startingVal = getAtIndex(startingIndex);
+
+            // Finds the smallest number after index that is bigger than step 1
+            int smallestNumLocationAfterStart =  startingIndex + 1;
+            int smallestNumAfterStart = getAtIndex(smallestNumAfterStart);
+
+            for(int i = smallestNumLocationAfterStart; i < getLength(); i++){
+                int currentNum = getAtIndex(i);
+                if(currentNum > startingVal && currentNum < smallestNumAfterStart){
+                    smallestNumLocationAfterStart = i;
+                    smallestNumAfterStart = currentNum;
+                }
+            }
+
+            // Swap step 1 and step 2
+            
+            vector<int> newPermSequence = permSequence;
+
+            newPermSequence = swapIndexs(newPermSequence,startingIndex,smallestNumLocationAfterStart);
+
+            // Sort substring after index in increasing order
+
+            // sort(newPermSequence.begin() + startingIndex + 1, newPermSequence.end());
+
+            return Permutation(newPermSequence);
         }
 
 };
 
 int main(){
-    Permutation test = Permutation(5);
+
+    cout << "ping";
+
     int seq[] =  {1,2,4,3};
+    Permutation test = Permutation(4,seq);
+    // cout << test.toString()<<"\n";
 
-    Permutation test2 = Permutation(4,seq);
-
-    cout << test2.toString()<<test2.get_length()<<"\n";
-
-    int location = test2.apply(3);
-    cout << test2.isId() <<"\n";
-
-    Permutation result = test2.compose(test2);
+    int seq2[] =  {3,2,1,4};
+    Permutation test2 = Permutation(4,seq2);
+    // cout << test2.toString()<<"\n";
 
 
+    // int location = test.apply(3);
+    // cout << test.isId() <<"\n";
 
-    cout << result.toString() <<"\n";
+    
+    // Permutation result = test.compose(test2);
+    // cout << result.toString();
+
+    Permutation next = test.Next();
+    // cout << next.toString();    
 
 }
