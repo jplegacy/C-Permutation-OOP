@@ -15,16 +15,18 @@ class Permutation{
     private:
         /**
          * INVARIANT:
-         *  - RelativeIndexLocations keeps track of changes made to the each item in the sequence
-         *  - e.g RIL = [0,0,0] implies the sequence 1,2,3 (ID Perm) and RIL = [1,-1,0] implies the sequence 2,1,3
-         *  - Will always be length of the sequence and every possible 
+         *  - permSequence keeps track of each value in the permutation which is represented as an index
+         *  - e.g permSequence = [1,2,3] implies the sequence 1,2,3 (ID Perm) and permSequence = [3,1,2] implies the sequence 3,1,2
+         *  - Will always have a size equal to the length
+         *  - Identity Permutation value can always be computed when given an index using the following [index + 1]
         */
         int length;
         vector<int> permSequence;
-
+    
         int getAtIndex(int index){
             return permSequence[index]; 
         }
+
         int getLength(){
             return (int) permSequence.size();
         }
@@ -41,6 +43,7 @@ class Permutation{
             return seq;
         }
 
+        // Traverses through Permutation to find the index of a specified value, if not found, returns -1
         int findValue(int valueToFind){
             for(int i=0; i < getLength();i++){
                 if( valueToFind == permSequence[i]){
@@ -49,6 +52,8 @@ class Permutation{
             }
             return -1;
         }
+
+        // Calculates value of the ID permutation at a specified index 
         int getIdentityPosition(int index)
         {
             return index+1;
@@ -66,25 +71,33 @@ class Permutation{
             }
         }
 
+       /**
+        * Non-default constructor that initiates a Permuation of size <len> using the <sequence>
+        * @param len specifies the length of the array being passed in
+        * @param sequence[] specifies the permutations values in order from beginning to end
+       */
         Permutation(int len, int sequence[]){
             length = len;
             for(int i=0; i < length; i++){
                 permSequence.push_back(sequence[i]); 
             }
         }
+       /**
+        * Non-default constructor that initiates a Permuation with a size of the <sequence> vector and using the <sequence> values
+        * @param sequence specifies the values in order that want to be passed in as a permutation 
+       */
 
-        Permutation(vector<int> seq){
-            length = (int) seq.size();
-            permSequence = seq;
+        Permutation(vector<int> sequence){
+            length = (int) sequence.size();
+            permSequence = sequence;
         }
 
         /**
-         * Locates the index of a specified integer in the next Permutation
-         * @param i the index of the specified integer in the Permutation
-         * @return the ith integer's index in the next permutatoin
+         * Gives the ID permutations matching index value within this permutation
+         * @param i value inside ID Permutation 
         */
-        int apply(int valueToFind){
-            return permSequence[valueToFind-1];
+        int apply(int i){
+            return getAtIndex(valueToFind-1);
         }
 
         /**
