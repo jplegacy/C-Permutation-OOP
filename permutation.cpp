@@ -6,7 +6,7 @@
 using namespace std;
 
 /**
- * Array based implementation of an individual Permutation. Can be used to find the next Permutation
+ * Vector Array based implementation of a Permutation. Integrates Knuth's Algorithm L to find next Lexicographic Permutation.
  * 
  * @author Jeremy Perez
  * @date January 2023
